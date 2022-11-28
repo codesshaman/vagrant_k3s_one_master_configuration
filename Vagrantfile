@@ -38,9 +38,6 @@ Vagrant.configure(2) do |config|
         v.name = "kmaster#{i}"
         v.memory = 2048
         v.cpus = 2
-      id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
-      masternode.vm.provision "copy ssh public key", type: "shell",
-      inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
       end
     end
   end
@@ -61,9 +58,6 @@ Vagrant.configure(2) do |config|
         v.name = "kworker#{i}"
         v.memory = 1024
         v.cpus = 1
-      id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
-      workernode.vm.provision "copy ssh public key", type: "shell",
-      inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
       end
     end
   end
