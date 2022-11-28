@@ -36,14 +36,13 @@ end
 
   # worker node config
   (1..WorkerCount).each do |i|
-    WORKER_NODE_IP = "192.168.56.9#{i}"
     config.vm.define "kworker#{i}" do |worker|
         worker.vm.hostname = "kworker#{i}"
-        worker.vm.network :private_network, ip: WORKER_NODE_IP
+        worker.vm.network :private_network, ip: "192.168.56.9#{i}"
         # run script for worker node with arguments
         worker.vm.provision "shell", privileged: true,
         path: "worker_node_setup.sh",
-        args: [MASTER_NODE_IP, WORKER_NODE_IP]
+        args: [MASTER_NODE_IP, "192.168.56.9#{i}"]
         worker.vm.provider "virtualbox" do |v|
             v.name = "kworker#{i}"
             v.memory = 1024
