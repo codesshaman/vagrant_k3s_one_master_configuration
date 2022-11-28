@@ -16,9 +16,9 @@ Vagrant.configure(2) do |config|
     	v.name = "loadbalancer"
     	v.memory = 512
     	v.cpus = 1
-		id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
-		config.vm.provision "copy ssh public key", type: "shell",
-	inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
+    id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
+    lb.vm.provision "copy ssh public key", type: "shell",
+    inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
     end
   end
 
@@ -32,14 +32,15 @@ Vagrant.configure(2) do |config|
       masternode.vm.hostname = "kmaster#{i}.example.com"
       masternode.vm.synced_folder ".", "/mnt", type: "virtualbox"
       masternode.vm.network "private_network", ip: MASTER_NODE_IP
-      masternode.vm.provision "shell", privileged: true, path: "master_node_setup.sh", args: MASTER_NODE_IP
+      masternode.vm.provision "shell", privileged: true,
+      path: "master_node_setup.sh", args: MASTER_NODE_IP
       masternode.vm.provider "virtualbox" do |v|
         v.name = "kmaster#{i}"
         v.memory = 2048
         v.cpus = 2
-		id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
-		config.vm.provision "copy ssh public key", type: "shell",
-		inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
+      id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
+      masternode.vm.provision "copy ssh public key", type: "shell",
+      inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
       end
     end
   end
@@ -48,20 +49,21 @@ Vagrant.configure(2) do |config|
 
   # Kubernetes Worker Nodes
   (1..NodeCount).each do |i|
-    CURRENT_WORKER_IP = "192.168.56.20#{i}"
+    CURRENT_WORKER_IP = "192.168.56.9#{i}"
     config.vm.define "kworker#{i}" do |workernode|
       workernode.vm.box = "bento/debian-11"
       workernode.vm.hostname = "kworker#{i}.example.com"
       workernode.vm.synced_folder ".", "/mnt", type: "virtualbox"
       workernode.vm.network "private_network", ip: CURRENT_WORKER_IP
-      workernode.vm.provision "shell", privileged: true, path: "worker_node_setup.sh", args: [MASTER_NODE_IP, CURRENT_WORKER_IP]
+      workernode.vm.provision "shell", privileged: true,
+      path: "worker_node_setup.sh", args: [MASTER_NODE_IP, CURRENT_WORKER_IP]
       workernode.vm.provider "virtualbox" do |v|
         v.name = "kworker#{i}"
         v.memory = 1024
         v.cpus = 1
-		id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
-		config.vm.provision "copy ssh public key", type: "shell",
-		inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
+      id_rsa_pub = File.read("#{Dir.home}/.ssh/id_rsa.pub")
+      workernode.vm.provision "copy ssh public key", type: "shell",
+      inline: "echo \"#{id_rsa_pub}\" >> /home/vagrant/.ssh/authorized_keys"
       end
     end
   end

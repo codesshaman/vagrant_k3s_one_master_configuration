@@ -11,3 +11,22 @@ sudo cp /var/lib/rancher/k3s/server/node-token /mnt/token
 echo "alias k='kubectl'" >> /etc/profile.d/00-aliases.sh
 
 echo "[machine : $(hostname)] has been setup succefully!"
+
+# Install the metrics
+
+sudo cp /mnt/node_exporter /usr/bin
+
+sudo apt update && sudo apt install supervisor
+sudo systemctl status supervisor
+
+{   echo '[program:node_exporter]'; \
+    echo 'command=/usr/bin/node_exporter'; \
+    echo 'autostart=true'; \
+    echo 'autorestart=true'; \
+    echo 'stderr_logfile=/var/log/node_exporter.err.log'; \
+    echo 'stdout_logfile=/var/log/node_exporter.out.log'; \
+} | tee  /etc/supervisor/conf.d/node_exporter_metrics.conf; \
+
+sudo supervisorctl reread
+
+echo "Node exporter has been setup succefully!"
