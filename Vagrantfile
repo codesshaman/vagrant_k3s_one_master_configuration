@@ -29,7 +29,7 @@ Vagrant.configure(2) do |config|
     config.vm.define "kmaster#{i}" do |masternode|
       masternode.vm.box = "bento/debian-11"
       masternode.vm.hostname = "kmaster#{i}.example.com"
-      master.vm.synced_folder ".", "/mnt", type: "virtualbox"
+      masternode.vm.synced_folder ".", "/mnt", type: "virtualbox"
       masternode.vm.network "private_network", ip: "192.168.56.10#{i}"
       masternode.vm.provider "virtualbox" do |v|
         v.name = "kmaster#{i}"
@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
     config.vm.define "kworker#{i}" do |workernode|
       workernode.vm.box = "bento/debian-11"
       workernode.vm.hostname = "kworker#{i}.example.com"
-      master.vm.synced_folder ".", "/mnt", type: "virtualbox"
+      workernode.vm.synced_folder ".", "/mnt", type: "virtualbox"
       workernode.vm.network "private_network", ip: "192.168.56.20#{i}"
       workernode.vm.provider "virtualbox" do |v|
         v.name = "kworker#{i}"
