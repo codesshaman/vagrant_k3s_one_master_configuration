@@ -20,7 +20,7 @@ echo "[machine : $(hostname)] has been setup succefully!"
 
 sudo cp /mnt/node_exporter /usr/bin
 
-sudo apt update && sudo apt install supervisor
+sudo apt update && sudo apt install supervisor git
 sudo systemctl status supervisor
 
 {   echo '[program:node_exporter]'; \
