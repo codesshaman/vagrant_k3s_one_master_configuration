@@ -10,6 +10,10 @@ sudo cp /var/lib/rancher/k3s/server/node-token /mnt/token
 
 echo "alias k='kubectl'" >> /etc/profile.d/00-aliases.sh
 
+source <(kubectl completion bash)
+
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+
 echo "[machine : $(hostname)] has been setup succefully!"
 
 # Install the metrics
