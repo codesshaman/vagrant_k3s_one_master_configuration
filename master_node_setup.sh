@@ -10,6 +10,8 @@ sudo cp /var/lib/rancher/k3s/server/node-token /mnt/token
 
 echo "alias k='kubectl'" >> /etc/profile.d/00-aliases.sh
 
+echo "alias kg='kubectl get'" >> /etc/profile.d/00-aliases.sh
+
 source <(kubectl completion bash)
 
 echo "source <(kubectl completion bash)" >> ~/.bashrc
