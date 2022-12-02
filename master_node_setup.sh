@@ -1,5 +1,9 @@
 #!/bin/bash
 
+sudo apt update && sudo apt install supervisor git
+
+git clone https://github.com/codesshaman/slurm_k8s_tasks.git /home/vagrant
+
 echo "[K3S] : installing..."
 export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --tls-san $(hostname) --node-ip $1  --bind-address=$1 --advertise-address=$1 "
 curl -sfL https://get.k3s.io |  sh -
@@ -24,7 +28,6 @@ echo "[machine : $(hostname)] has been setup succefully!"
 
 sudo cp /mnt/node_exporter /usr/bin
 
-sudo apt update && sudo apt install supervisor git
 sudo systemctl status supervisor
 
 {   echo '[program:node_exporter]'; \
