@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
         path: "master_node_setup.sh",
         args: [MASTER_NODE_IP]
         master.vm.provider "virtualbox" do |v|
-            v.name = "kmaster#{i}"
+            v.name = "master_of_puppets_#{i}"
             v.memory = 2048
             v.cpus = 2
         end
@@ -44,7 +44,7 @@ end
         path: "worker_node_setup.sh",
         args: [MASTER_NODE_IP, "192.168.58.9#{i}"]
         worker.vm.provider "virtualbox" do |v|
-            v.name = "kworker#{i}"
+            v.name = "puppet_#{i}"
             v.memory = 1024
             v.cpus = 1
         end
