@@ -45,6 +45,12 @@ echo "alias kg='kubectl get'" >> /etc/profile.d/00-aliases.sh
 echo "alias kd='kubectl describe'" >> /etc/profile.d/00-aliases.sh
 
 echo "[K3S] : add autofill..."
-tee -a ~/.bashrc <<< "source <(kubectl completion bash)"
+echo "source <(kubectl completion bash)" >> /etc/profile.d/00-aliases.sh
 
 echo "[machine : $(hostname)] has been setup succefully!"
+
+
+echo "[Git] : install git..."
+rm -rf /home/vagrant/node_exporter-* && apt update && apt install -y git
+echo "[Git] : clone learning repository..."
+su - vagrant -c 'git clone https://github.com/codesshaman/slurm_k8s_tasks.git /home/vagrant/slurm'
