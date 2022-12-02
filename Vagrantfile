@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
 
   # master node config
   (1..MasterCount).each do |i|
-    MASTER_NODE_IP = "192.168.68.10#{i}"
+    MASTER_NODE_IP = "192.168.58.10#{i}"
     config.vm.define "kmaster#{i}" do |master|
         master.vm.hostname = "kmaster#{i}"
         master.vm.network :private_network, ip: MASTER_NODE_IP
@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
         path: "master_node_setup.sh",
         args: [MASTER_NODE_IP]
         master.vm.provider "virtualbox" do |v|
-            v.name = "kmaster#{i}"
+            v.name = "master_of_puppets_#{i}"
             v.memory = 2048
             v.cpus = 2
         end
@@ -38,13 +38,13 @@ end
   (1..WorkerCount).each do |i|
     config.vm.define "kworker#{i}" do |worker|
         worker.vm.hostname = "kworker#{i}"
-        worker.vm.network :private_network, ip: "192.168.68.9#{i}"
+        worker.vm.network :private_network, ip: "192.168.58.9#{i}"
         # run script for worker node with arguments
         worker.vm.provision "shell", privileged: true,
         path: "worker_node_setup.sh",
-        args: [MASTER_NODE_IP, "192.168.68.9#{i}"]
+        args: [MASTER_NODE_IP, "192.168.58.9#{i}"]
         worker.vm.provider "virtualbox" do |v|
-            v.name = "kworker#{i}"
+            v.name = "puppet_#{i}"
             v.memory = 1024
             v.cpus = 1
         end
