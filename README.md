@@ -1,6 +1,8 @@
-# Vagrant K3s configuration
+# Vagrant virual machine with minikube
 
 Your need install vagrant and virtualbox for up this configuration.
+
+Your need install [vagrant](https://github.com/hashicorp/vagrant-installers/releases/tag/v2.3.4.dev%2Bmain "vagrant") and  [virtualbox](https://www.virtualbox.org/ "virtualbox") for up this configuration. Optional you can use [make](https://www.gnu.org/software/make/ "make").
 
 ### Step 1
 
@@ -20,6 +22,30 @@ Copy box and go inside the repository folder:
 
 ### Step 4
 
+Inicialize configuration:
+
+``vagrant box add bento/debian-11 debian``
+
+or with make:
+
+``make build``
+
+### Step 5
+
 Install configuration:
 
 ``vagrant up --provider=virtualbox``
+
+or with make:
+
+``make``
+
+### Step 6
+
+Connect:
+
+``ssh vagrant@192.168.58.100``
+
+or with make:
+
+``make connect``
