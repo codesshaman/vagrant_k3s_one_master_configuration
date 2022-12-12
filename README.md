@@ -6,7 +6,7 @@ Your need install [vagrant](https://github.com/hashicorp/vagrant-installers/rele
 
 ### Step 1
 
-Download box bento/debian-11 for virtualbox from [vagrantup](https://app.vagrantup.com/boxes/search "vagrantup").
+Download box bento/debian-11 for virtualbox from [vagrantup](https://app.vagrantup.com/bento/boxes/debian-11 "vagrantup").
 
 ### Step 2
 
