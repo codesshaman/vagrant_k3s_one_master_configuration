@@ -35,7 +35,7 @@ build:
 
 connect:
 	@printf "$(OK_COLOR)==== Connecting to virtual machine ${name}... ====$(NO_COLOR)\n"
-	@ssh vagrant@192.168.58.100
+	@ssh vagrant@192.168.58.101
 
 down:
 	@printf "$(ERROR_COLOR)==== Stopping configuration ${name}... ====$(NO_COLOR)\n"
