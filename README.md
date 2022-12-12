@@ -44,7 +44,7 @@ or with make:
 
 Connect:
 
-``ssh vagrant@192.168.58.100``
+``ssh vagrant@192.168.58.101``
 
 or with make:
 
