@@ -1,4 +1,4 @@
-# Vagrant virual machine with minikube
+# Vagrant virual machine with k3s
 
 Your need install vagrant and virtualbox for up this configuration.
 
